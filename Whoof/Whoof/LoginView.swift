@@ -47,8 +47,8 @@ struct LoginView: View {
                 .frame(maxWidth: UIScreen.main.bounds.width - 30)
                 .background(Color(hex: "#8A56AC"))
                 .cornerRadius(40)
-                Button {
-                    
+                NavigationLink {
+                   OnboardingView()
                 } label: {
                     Text("Email")
                         .font(.system(size: 14))

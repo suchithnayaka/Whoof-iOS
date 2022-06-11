@@ -88,6 +88,7 @@ extension Color {
 extension UIColor {
     static let tabUnselected = UIColor(named: "tabUnslected")
     static let tabSelected = UIColor(named: "tabSelected")
+    static let placeholder = UIColor(named: "placeholder")
 }
 
 extension Color {
