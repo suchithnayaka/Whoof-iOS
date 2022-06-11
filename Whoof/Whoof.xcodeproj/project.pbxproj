@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		120E1BA82854589700B88BE6 /* PhoneLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E1BA72854589700B88BE6 /* PhoneLoginView.swift */; };
 		120E1BAA28545D1E00B88BE6 /* cornerRadius Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E1BA928545D1E00B88BE6 /* cornerRadius Extension.swift */; };
+		120E1BAD28546A0A00B88BE6 /* KeyPadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E1BAC28546A0A00B88BE6 /* KeyPadButton.swift */; };
+		120E1BAF28546A4E00B88BE6 /* KeyPadRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E1BAE28546A4E00B88BE6 /* KeyPadRow.swift */; };
+		120E1BB128546A8200B88BE6 /* KeyPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E1BB028546A8200B88BE6 /* KeyPad.swift */; };
+		120E1BB52854746100B88BE6 /* VerifyOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E1BB42854746100B88BE6 /* VerifyOTPView.swift */; };
 		12ABEB0728461DA7005FCE5A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12ABEB0628461DA7005FCE5A /* LoginView.swift */; };
 		12ABEB09284620B0005FCE5A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12ABEB08284620B0005FCE5A /* Colors.swift */; };
 		12ED5CEA2845EDCB009C2E06 /* WhoofApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12ED5CE92845EDCB009C2E06 /* WhoofApp.swift */; };
@@ -40,6 +44,11 @@
 /* Begin PBXFileReference section */
 		120E1BA72854589700B88BE6 /* PhoneLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginView.swift; sourceTree = "<group>"; };
 		120E1BA928545D1E00B88BE6 /* cornerRadius Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "cornerRadius Extension.swift"; sourceTree = "<group>"; };
+		120E1BAC28546A0A00B88BE6 /* KeyPadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPadButton.swift; sourceTree = "<group>"; };
+		120E1BAE28546A4E00B88BE6 /* KeyPadRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPadRow.swift; sourceTree = "<group>"; };
+		120E1BB028546A8200B88BE6 /* KeyPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPad.swift; sourceTree = "<group>"; };
+		120E1BB328546BF000B88BE6 /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		120E1BB42854746100B88BE6 /* VerifyOTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOTPView.swift; sourceTree = "<group>"; };
 		12ABEB0628461DA7005FCE5A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		12ABEB08284620B0005FCE5A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		12ED5CE62845EDCB009C2E06 /* Whoof.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whoof.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,9 +91,29 @@
 		120E1BA62854587100B88BE6 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				120E1BAB285469EF00B88BE6 /* NumberPad */,
 				120E1BA72854589700B88BE6 /* PhoneLoginView.swift */,
+				120E1BB42854746100B88BE6 /* VerifyOTPView.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		120E1BAB285469EF00B88BE6 /* NumberPad */ = {
+			isa = PBXGroup;
+			children = (
+				120E1BAC28546A0A00B88BE6 /* KeyPadButton.swift */,
+				120E1BAE28546A4E00B88BE6 /* KeyPadRow.swift */,
+				120E1BB028546A8200B88BE6 /* KeyPad.swift */,
+			);
+			path = NumberPad;
+			sourceTree = "<group>";
+		};
+		120E1BB228546BD600B88BE6 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				120E1BB328546BF000B88BE6 /* Montserrat-Light.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		12ED5CDD2845EDCA009C2E06 = {
@@ -110,6 +139,7 @@
 		12ED5CE82845EDCB009C2E06 /* Whoof */ = {
 			isa = PBXGroup;
 			children = (
+				120E1BB228546BD600B88BE6 /* Fonts */,
 				120E1BA62854587100B88BE6 /* Login */,
 				12ED5CE92845EDCB009C2E06 /* WhoofApp.swift */,
 				12ED5CEB2845EDCB009C2E06 /* ContentView.swift */,
@@ -277,12 +307,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				120E1BAF28546A4E00B88BE6 /* KeyPadRow.swift in Sources */,
 				120E1BA82854589700B88BE6 /* PhoneLoginView.swift in Sources */,
 				12ABEB0728461DA7005FCE5A /* LoginView.swift in Sources */,
 				12ABEB09284620B0005FCE5A /* Colors.swift in Sources */,
+				120E1BB128546A8200B88BE6 /* KeyPad.swift in Sources */,
+				120E1BB52854746100B88BE6 /* VerifyOTPView.swift in Sources */,
 				12ED5CEC2845EDCB009C2E06 /* ContentView.swift in Sources */,
 				12ED5CEA2845EDCB009C2E06 /* WhoofApp.swift in Sources */,
 				120E1BAA28545D1E00B88BE6 /* cornerRadius Extension.swift in Sources */,
+				120E1BAD28546A0A00B88BE6 /* KeyPadButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

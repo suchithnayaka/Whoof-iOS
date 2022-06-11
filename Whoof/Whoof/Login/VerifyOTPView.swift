@@ -1,5 +1,5 @@
 //
-//  PhoneLoginView.swift
+//  VerifyOTPView.swift
 //  Whoof
 //
 //  Created by Suchith Nayaka on 11/06/22.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct PhoneLoginView: View {
+struct VerifyOTPView: View {
     
     @State private var string = "0"
     @Environment(\.presentationMode) private var presentationMode
@@ -29,7 +29,7 @@ struct PhoneLoginView: View {
                         }
                         Spacer()
                     }
-                    Text("Phone Number")
+                    Text("Verification Code")
                         .fontWeight(.bold)
                         .font(.system(size: 26))
                         .foregroundColor(.black)
@@ -37,8 +37,6 @@ struct PhoneLoginView: View {
                 }
             }
             HStack {
-                Image("flag")
-                Image(systemName: "chevron.down")
                 Text(string)
                     .foregroundColor(.white)
                     .font(.system(size: 28))
@@ -47,10 +45,10 @@ struct PhoneLoginView: View {
             .padding()
             Divider()
                 .padding()
-            NavigationLink {
-                VerifyOTPView()
+            Button {
+                
             } label: {
-                Text("Verify")
+                Text("Next")
                     .font(.system(size: 14))
                     .foregroundColor(.white)
                     .fontWeight(.semibold)
