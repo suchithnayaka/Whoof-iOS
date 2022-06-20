@@ -9,19 +9,19 @@
 import Foundation
 
 enum BetterDecodingError: CustomStringConvertible {
-
+    
     case dataCorrupted(_ message: String)
     case keyNotFound(_ message: String)
     case typeMismatch(_ message: String)
     case valueNotFound(_ message: String)
     case any(_ error: Error)
-
+    
     init(with error: Error) {
         guard let decodingError = error as? DecodingError else {
             self = .any(error)
             return
         }
-
+        
         switch decodingError {
         case let .dataCorrupted(context):
             let debugDescription = (context.underlyingError as NSError?)?.userInfo["NSDebugDescription"] ?? ""

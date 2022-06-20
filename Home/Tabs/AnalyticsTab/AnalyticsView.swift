@@ -14,8 +14,8 @@ struct AnaylticsView: View {
     
     var body: some View {
         VStack {
-       LineGraphView()
-    }
+            LineGraphView()
+        }
         .background(Color.card)
         .cornerRadius(radius: 15, corners: [.topLeft,.bottomRight])
         .shadow(color: Color(hex: "#00000029"), radius: 10, x: 0, y: 10)

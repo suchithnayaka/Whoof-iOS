@@ -22,31 +22,31 @@ struct HomeView: View {
     @State var selectedTab: WhoofTabs = .home
     
     var body: some View {
-            ZStack {
-                TabView(selection: $selectedTab) {
-                    AnaylticsView(tabSelection: $selectedTab)
-                        .tabItem {
-                            Image("Analytics")
-                            Text("Analytics")
-                        }
-                        .tag(WhoofTabs.analytics)
-                    HomeTabView(tabSelection: $selectedTab)
-                        .tabItem {
-                            Image("Home")
-                            Text("Home")
-                        }
-                        .tag(WhoofTabs.home)
-                    ProfileView(tabSelection: $selectedTab)
-                        .tabItem {
-                            Image("Profile")
-                            Text("Profile")
-                        }
-                        .tag(WhoofTabs.profile)
-                }
-                .onAppear {
-                    selectedTab = .home
-                }
+        ZStack {
+            TabView(selection: $selectedTab) {
+                AnaylticsView(tabSelection: $selectedTab)
+                    .tabItem {
+                        Image("Analytics")
+                        Text("Analytics")
+                    }
+                    .tag(WhoofTabs.analytics)
+                HomeTabView(tabSelection: $selectedTab)
+                    .tabItem {
+                        Image("Home")
+                        Text("Home")
+                    }
+                    .tag(WhoofTabs.home)
+                ProfileView(tabSelection: $selectedTab)
+                    .tabItem {
+                        Image("Profile")
+                        Text("Profile")
+                    }
+                    .tag(WhoofTabs.profile)
             }
-            .accentColor(.tabSelected)
+            .onAppear {
+                selectedTab = .home
+            }
+        }
+        .accentColor(.tabSelected)
     }
 }

@@ -16,9 +16,9 @@ public protocol Requestable {
 
 public class NativeRequestable: Requestable {
     public var requestTimeOut: Float = 30
-
+    
     public func request<T>(_ req: NetworkRequest) -> AnyPublisher<T, NetworkRequestError>
-     where T: Decodable, T: Encodable {
+    where T: Decodable, T: Encodable {
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.timeoutIntervalForRequest = TimeInterval(req.requestTimeOut ?? requestTimeOut)
         
@@ -29,17 +29,17 @@ public class NativeRequestable: Requestable {
             )
         }
         // We use the dataTaskPublisher from the URLSession which gives us a publisher to play around with.
-         print("$$\(url.absoluteString)&&")
-//         if url.absoluteString.contains("set_user") {
-//             print(String(data: req.body!, encoding: .utf8))
-//             print("here")
-//             postMethod(url: url, jsonData: req.body!)
-//         }
-         let request = req.buildURLRequest(with: url)
+        print("$$\(url.absoluteString)&&")
+        //         if url.absoluteString.contains("set_user") {
+        //             print(String(data: req.body!, encoding: .utf8))
+        //             print("here")
+        //             postMethod(url: url, jsonData: req.body!)
+        //         }
+        let request = req.buildURLRequest(with: url)
         return URLSession.shared
             .dataTaskPublisher(for: request)
             .tryMap { output in
-                     // throw an error if response is nil
+                // throw an error if response is nil
                 print("$$\(output.response.url!.absoluteString)//")
                 if ((output.response.url!.absoluteString.contains("user_ios"))) {
                     print(String(data: output.data, encoding: .utf8) ?? "")
@@ -57,7 +57,7 @@ public class NativeRequestable: Requestable {
                         print("This is the problem")
                     }
                 }
-//
+                //
                 return output.data
             }
             .decode(type: T.self, decoder: JSONDecoder())
@@ -66,7 +66,7 @@ public class NativeRequestable: Requestable {
                     print("Here")
                 }
                 print("**Problem is with- \(url.absoluteString)**")
-//                print(String(data: output.data, encoding: .utf8))
+                //                print(String(data: output.data, encoding: .utf8))
                 print(BetterDecodingError(with: error))
                 return NetworkRequestError.invalidJSON(String(describing: error))
                 
@@ -109,12 +109,12 @@ public struct NetworkRequest {
         self.body = reqBody
         self.requestTimeOut = reqTimeout
         self.httpMethod = httpMethod
-//        self.
+        //        self.
     }
     
     func buildURLRequest(with url: URL) -> URLRequest {
         if headers != nil {
-//            headers!["Accept"] = "application/json"
+            //            headers!["Accept"] = "application/json"
         }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = httpMethod.rawValue
