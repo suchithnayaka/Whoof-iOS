@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import FirebaseDatabase
 
 class HomeTabViewModel: ObservableObject {
     
@@ -43,7 +44,7 @@ class HomeTabViewModel: ObservableObject {
     }
     
     func predictHealth() {
-        service.predictHealth(data: PredictHealthPostModel(breed: 0, temp: 37.22, age: 1, heartRate: 102, weight: 26, gender: 1, food: 1, water: 1050))
+        service.predictHealth(data: PredictHealthPostModel(breed: CommonData.sharedVariables.breed, temp: 37.22, age: CommonData.sharedVariables.age, heartRate: 102, weight: CommonData.sharedVariables.weight, gender: CommonData.sharedVariables.gender, food: 1, water: 1050))
             .sink { (completion) in
                 switch completion {
                 case .finished:
@@ -55,5 +56,26 @@ class HomeTabViewModel: ObservableObject {
                 print(response)
             }
             .store(in: &subscriptions)
+    }
+    
+    
+    func getIPfromFirebase() {
+        let ref = Database.database().reference()
+        var result = ""
+        ref.child("suchith/ip").getData { (error, snapshot) in
+            if let error = error {
+                print("Error getting data \(error)")
+            }
+            else if snapshot.exists() {
+                print("Got data \(snapshot.value!)")
+                if snapshot.value != nil {
+                    result = snapshot.value as! String
+                    CommonData.sharedVariables.feederIP = result
+                }
+            }
+            else {
+                print("No data available")
+            }
+        }
     }
 }

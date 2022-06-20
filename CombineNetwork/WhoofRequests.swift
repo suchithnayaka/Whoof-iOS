@@ -55,34 +55,15 @@ enum WhoofEndpoints {
         let baseUrl = environment.whoofServiceBaseURL
         switch self {
         case .feedFood:
-            return "\(getIPfromFirebase())/feedFood"
+            return "https://\(CommonData.sharedVariables.feederIP)/feedFood"
         case .feedWater:
-            return "\(getIPfromFirebase())/feedWater"
+            return "https://\(CommonData.sharedVariables.feederIP)/feedWater"
         case .predictHealth:
             return "\(baseUrl)/predict"
             
         }
     }
     
-    func getIPfromFirebase() -> String {
-        let ref = Database.database().reference()
-        var result = ""
-        ref.child("suchith/ip").getData { (error, snapshot) in
-            if let error = error {
-                print("Error getting data \(error)")
-            }
-            else if snapshot.exists() {
-                print("Got data \(snapshot.value!)")
-                if snapshot.value != nil {
-                    result = snapshot.value as! String
-                }
-            }
-            else {
-                print("No data available")
-            }
-        }
-        return result
-    }
 }
 
 public enum NetworkEnvironment: String, CaseIterable {

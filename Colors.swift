@@ -89,12 +89,18 @@ extension UIColor {
     static let tabUnselected = UIColor(named: "tabUnslected")
     static let tabSelected = UIColor(named: "tabSelected")
     static let placeholder = UIColor(named: "placeholder")
+    static let bgColor = UIColor(named: "bgColor")
+    static let foregroundText = UIColor(named: "foregroundText")
+    static let card = UIColor(named: "card")
 }
 
 extension Color {
     static let placeholder = Color("placeholder")
     static let tabUnselected = Color("tabUnslected")
     static let tabSelected = Color("tabSelected")
+    static let bgColor = Color("bgColor")
+    static let foregroundText = Color("foregroundText")
+    static let card = Color("card")
     static var random: Color {
         return Color(red: .random(in: 0...1),
                      green: .random(in: 0...1),

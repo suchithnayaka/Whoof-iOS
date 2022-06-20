@@ -18,7 +18,9 @@ struct ContentView: View {
             }
         }
         else {
+            NavigationView {
             HomeView()
+            }
         }
     }
 }

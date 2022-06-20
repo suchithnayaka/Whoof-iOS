@@ -18,8 +18,16 @@ class UserAuth: ObservableObject {
         DispatchQueue.main.async {
             self.isLoggedIn = true
         }
-        
     }
+    
+    
+    func logout() {
+        DispatchQueue.main.async {
+            self.isLoggedIn = false
+        }
+    }
+    
+    
     
     @Published var isLoggedIn: Bool = UserDefaults.standard.bool(forKey: "userLoggedIn") {
         didSet {

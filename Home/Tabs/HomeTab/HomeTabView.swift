@@ -14,7 +14,7 @@ struct HomeTabView: View {
     @ObservedObject var homeTabVM = HomeTabViewModel()
     var body: some View {
         ZStack {
-            Color.tabSelected
+            Color.bgColor
             VStack {
                 HStack {
                     Button {
@@ -77,6 +77,9 @@ struct HomeTabView: View {
                     .shadow(color: Color(hex: "#00000029"), radius: 10, x: 0, y: 10)
                 }
             }
+        }
+        .onAppear {
+            homeTabVM.getIPfromFirebase()
         }
     }
 }
