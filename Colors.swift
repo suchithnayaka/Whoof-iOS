@@ -92,6 +92,7 @@ extension UIColor {
     static let bgColor = UIColor(named: "bgColor")
     static let foregroundText = UIColor(named: "foregroundText")
     static let card = UIColor(named: "card")
+    static let shadow = UIColor(named: "shadow")
 }
 
 extension Color {
@@ -101,6 +102,7 @@ extension Color {
     static let bgColor = Color("bgColor")
     static let foregroundText = Color("foregroundText")
     static let card = Color("card")
+    static let shadow = Color("shadow")
     static var random: Color {
         return Color(red: .random(in: 0...1),
                      green: .random(in: 0...1),

@@ -13,6 +13,12 @@ struct AnaylticsView: View {
     @Binding var tabSelection: HomeView.WhoofTabs
     
     var body: some View {
-        Text("Analytics")
+        VStack {
+       LineGraphView()
+    }
+        .background(Color.card)
+        .cornerRadius(radius: 15, corners: [.topLeft,.bottomRight])
+        .shadow(color: Color(hex: "#00000029"), radius: 10, x: 0, y: 10)
+        .padding()
     }
 }
