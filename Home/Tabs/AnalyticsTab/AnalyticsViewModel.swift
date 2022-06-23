@@ -17,24 +17,12 @@ class AnalyticsViewModel: ObservableObject {
     
     func getTemperature() {
         let ref = Database.database().reference()
-        ref.child("suchith/temp").getData { (error, snapshot) in
-            if let error = error {
-                print("Error getting data \(error)")
-            }
-            else if snapshot.exists() {
-                print("Got data \(snapshot.value!)")
-                if snapshot.value != nil {
-                    self.temp = snapshot.value as! [CGFloat]
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        if self.temp != [] {
-                            CommonData.sharedVariables.temp = Float(self.temp.last!)
-                        }
-                    }
-                }
-            }
-            else {
-                print("No data available")
-            }
+        ref.child("suchith/temp").observeSingleEvent(of: .value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            self.temp = value?.allValues as! [CGFloat]
+            print(self.temp)
+        }) { error in
+            print(error.localizedDescription)
         }
     }
     

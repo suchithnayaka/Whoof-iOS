@@ -83,27 +83,14 @@ class HomeTabViewModel: ObservableObject {
         }
     }
     
-    func getPulse() {
+    func getPulse(){
         let ref = Database.database().reference()
-        ref.child("suchith/heart").getData { (error, snapshot) in
-            if let error = error {
-                print("Error getting data \(error)")
-            }
-            else if snapshot.exists() {
-                print("Got data \(snapshot.value!)")
-                if snapshot.value != nil {
-                    self.heartRates = snapshot.value as! [CGFloat]
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        if self.heartRates != [] {
-                            CommonData.sharedVariables.heart = Int(self.heartRates.last!)
-                        }
-                    }
-
-                }
-            }
-            else {
-                print("No data available")
-            }
+        ref.child("suchith/heart").observeSingleEvent(of: .value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            self.heartRates = value?.allValues as! [CGFloat]
+            print(self.heartRates)
+        }) { error in
+            print(error.localizedDescription)
         }
     }
     
