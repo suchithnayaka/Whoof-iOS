@@ -9,16 +9,49 @@ import Foundation
 import SwiftUI
 
 struct HomeTabView: View {
-    
+    @State var showAlert: Bool = false
     @Binding var tabSelection: HomeView.WhoofTabs
     @ObservedObject var homeTabVM = HomeTabViewModel()
+    @ObservedObject var analyticsVM = AnalyticsViewModel()
     var body: some View {
         ZStack {
             Color.bgColor
             VStack {
                 HStack {
+                Text("Heart Rate Monitoring")
+                    .foregroundColor(Color.foregroundText)
+                    .fontWeight(.bold)
+                    .font(.system(size: 20))
+                    .padding()
+                    Spacer()
+                }
+                VStack {
+                    if homeTabVM.heartRates != [] {
+                        let count = homeTabVM.heartRates.count
+                        HStack {
+                            Text("\(homeTabVM.heartRates[count-1], specifier: "%.2f") bpm")
+                            .fontWeight(.bold)
+                            .font(.system(size: 28))
+                            .padding()
+                            Spacer()
+                        }
+                    }
+                    LineGraphView(lineColor: "#5F4591" , values: homeTabVM.heartRates)
+                }
+                .background(Color.card)
+                .cornerRadius(radius: 15, corners: [.topLeft,.bottomRight])
+                .shadow(color: Color(hex: "#00000029"), radius: 10, x: 0, y: 10)
+                .padding()
+                
+                HStack {
                     Button {
+                        if homeTabVM.feedingsDone < CommonData.sharedVariables.totalFeedings {
                         homeTabVM.feedFood()
+                        }
+                        else {
+                            CommonData.sharedVariables.feedingsDone = 0 
+                            showAlert = true
+                        }
                     } label: {
                         VStack(alignment: .leading) {
                             Text("Feed your\n Dog!")
@@ -28,14 +61,14 @@ struct HomeTabView: View {
                                 .multilineTextAlignment(.leading)
                                 .padding()
                             HStack {
-                                Text("2/3 times done")
+                                MyProgressView(progress: Float(homeTabVM.feedingsDone)/Float(CommonData.sharedVariables.totalFeedings))
+                                    .frame(width: 20, height: 20)
+                                    .padding([.vertical,.leading])
+                                Text("\(homeTabVM.feedingsDone)/\(CommonData.sharedVariables.totalFeedings) times done")
                                     .foregroundColor(.tabSelected)
                                     .font(.system(size: 12))
                                     .fontWeight(.regular)
                                     .opacity(0.5)
-                                    .padding()
-                                CustomProgressView(progress: 0.66)
-                                    .frame(width: 20, height: 20)
                                     .padding()
                             }
                         }
@@ -57,14 +90,14 @@ struct HomeTabView: View {
                                 .multilineTextAlignment(.leading)
                                 .padding()
                             HStack {
-                                Text("3/5 times done")
+                                MyProgressView(progress: Float(homeTabVM.feedingsDone)/Float(CommonData.sharedVariables.totalFeedings))
+                                    .frame(width: 20, height: 20)
+                                    .padding([.vertical,.leading])
+                                Text("\(homeTabVM.feedingsDone)/\(CommonData.sharedVariables.totalFeedings) times done")
                                     .foregroundColor(.tabSelected)
                                     .font(.system(size: 12))
                                     .fontWeight(.regular)
                                     .opacity(0.5)
-                                    .padding()
-                                CustomProgressView(progress: 0.6)
-                                    .frame(width: 20, height: 20)
                                     .padding()
                             }
                         }
@@ -78,8 +111,13 @@ struct HomeTabView: View {
                 }
             }
         }
+        .alert(isPresented: $showAlert, content: {
+            Alert(title: Text("Error"), message: Text("Your dog had enough food for the day."), dismissButton: .default(Text("OK")))
+        })
         .onAppear {
+            analyticsVM.getTemperature()
             homeTabVM.getIPfromFirebase()
+            homeTabVM.getPulse()
         }
     }
 }

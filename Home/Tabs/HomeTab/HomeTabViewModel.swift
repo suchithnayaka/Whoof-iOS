@@ -11,6 +11,8 @@ import FirebaseDatabase
 
 class HomeTabViewModel: ObservableObject {
     
+    @Published var heartRates: [CGFloat] = []
+    @Published var feedingsDone: Int = CommonData.sharedVariables.feedingsDone
     var subscriptions = Set<AnyCancellable>()
     let service = WhoofService()
     
@@ -20,6 +22,8 @@ class HomeTabViewModel: ObservableObject {
                 switch completion {
                 case .finished:
                     print("Feeding Done")
+                    self.feedingsDone += 1
+                    CommonData.sharedVariables.feedingsDone += 1
                 case .failure(let error):
                     print("Error: \(error)")
                 }
@@ -44,11 +48,11 @@ class HomeTabViewModel: ObservableObject {
     }
     
     func predictHealth() {
-        service.predictHealth(data: PredictHealthPostModel(breed: CommonData.sharedVariables.breed, temp: 37.22, age: CommonData.sharedVariables.age, heartRate: 102, weight: CommonData.sharedVariables.weight, gender: CommonData.sharedVariables.gender, food: 1, water: 1050))
+        service.predictHealth(data: PredictHealthPostModel(breed: CommonData.sharedVariables.breed, temp: CommonData.sharedVariables.temp, age: CommonData.sharedVariables.age, heartRate: CommonData.sharedVariables.heart, weight: CommonData.sharedVariables.weight, gender: CommonData.sharedVariables.gender, food: CommonData.sharedVariables.feedingsDone, water: 1050))
             .sink { (completion) in
                 switch completion {
                 case .finished:
-                    print("Fetching Done")
+                    print("Prediction Done")
                 case .failure(let error):
                     print("Error: \(error)")
                 }
@@ -78,4 +82,29 @@ class HomeTabViewModel: ObservableObject {
             }
         }
     }
+    
+    func getPulse() {
+        let ref = Database.database().reference()
+        ref.child("suchith/heart").getData { (error, snapshot) in
+            if let error = error {
+                print("Error getting data \(error)")
+            }
+            else if snapshot.exists() {
+                print("Got data \(snapshot.value!)")
+                if snapshot.value != nil {
+                    self.heartRates = snapshot.value as! [CGFloat]
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        if self.heartRates != [] {
+                            CommonData.sharedVariables.heart = Int(self.heartRates.last!)
+                        }
+                    }
+
+                }
+            }
+            else {
+                print("No data available")
+            }
+        }
+    }
+    
 }

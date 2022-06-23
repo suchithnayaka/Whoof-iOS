@@ -9,10 +9,11 @@ import Foundation
 import SwiftUI
 
 struct PreferencesView: View {
-    @State var weight: Int = 0
-    @State var breed: Int = 0
-    @State var gender: Int = 0
-    @State var age: Int = 0
+    @State var weight: Int = CommonData.sharedVariables.weight
+    @State var totalFeedings: Int = CommonData.sharedVariables.totalFeedings
+    @State var breed: Int = CommonData.sharedVariables.breed
+    @State var gender: Int = CommonData.sharedVariables.gender
+    @State var age: Int = CommonData.sharedVariables.age
     @State var genderOptions: [String] = ["Male","Female"]
     @State var breedOptions: [String] = ["German Shepherd", "Golden Retriever"]
     @State var ageOptions: [String] = ["Puppy","Adult","Old"]
@@ -51,6 +52,15 @@ struct PreferencesView: View {
                         }
                     }
                 }
+                Section {
+                    Text("Number of times you feed your dog")
+                    Picker("",selection: $totalFeedings) {
+                        ForEach(0..<10) {
+                            Text("\($0)")
+                        }
+                    }
+                }
+
             }
         }
         .onDisappear {
@@ -58,6 +68,7 @@ struct PreferencesView: View {
             CommonData.sharedVariables.age = age
             CommonData.sharedVariables.breed = breed
             CommonData.sharedVariables.weight = weight
+            CommonData.sharedVariables.totalFeedings = totalFeedings
         }
     }
 }

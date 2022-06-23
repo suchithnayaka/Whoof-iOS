@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 
 class CommonData {
@@ -44,6 +45,22 @@ class SharedVariables: ObservableObject {
         }
     }
     
+    var heart: Int {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "heart")
+        } get {
+            return Int(UserDefaults.standard.integer(forKey: "heart"))
+        }
+    }
+    
+    var temp: Float {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "temp")
+        } get {
+            return Float(UserDefaults.standard.integer(forKey: "temp"))
+        }
+    }
+    
     var breed: Int {
         set {
             UserDefaults.standard.set(newValue, forKey: "breed")
@@ -52,11 +69,35 @@ class SharedVariables: ObservableObject {
         }
     }
     
+    var totalFeedings: Int {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "totalFeedings")
+        } get {
+            return Int(UserDefaults.standard.integer(forKey: "totalFeedings"))
+        }
+    }
+    
+    var feedingsDone: Int {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "feedingsDone")
+        } get {
+            return Int(UserDefaults.standard.integer(forKey: "feedingsDone"))
+        }
+    }
+    
     var feederIP: String {
         set {
             UserDefaults.standard.set(newValue, forKey: "feederIP")
         } get {
             return UserDefaults.standard.string(forKey: "feederIP") ?? ""
+        }
+    }
+    
+    var health: Int {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "health")
+        } get {
+            return Int(UserDefaults.standard.integer(forKey: "health"))
         }
     }
 }

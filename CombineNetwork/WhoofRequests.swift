@@ -55,7 +55,7 @@ enum WhoofEndpoints {
         let baseUrl = environment.whoofServiceBaseURL
         switch self {
         case .feedFood:
-            return "https://\(CommonData.sharedVariables.feederIP)/feedFood"
+            return "http://\(CommonData.sharedVariables.feederIP)/feedFood"
         case .feedWater:
             return "https://\(CommonData.sharedVariables.feederIP)/feedWater"
         case .predictHealth:
