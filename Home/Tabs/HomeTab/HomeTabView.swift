@@ -18,11 +18,11 @@ struct HomeTabView: View {
             Color.bgColor
             VStack {
                 HStack {
-                Text("Heart Rate Monitoring")
-                    .foregroundColor(Color.foregroundText)
-                    .fontWeight(.bold)
-                    .font(.system(size: 20))
-                    .padding()
+                    Text("Heart Rate Monitoring")
+                        .foregroundColor(Color.foregroundText)
+                        .fontWeight(.bold)
+                        .font(.system(size: 20))
+                        .padding()
                     Spacer()
                 }
                 VStack {
@@ -30,10 +30,37 @@ struct HomeTabView: View {
                         let count = homeTabVM.heartRates.count
                         HStack {
                             Text("\(homeTabVM.heartRates[count-1], specifier: "%.2f") bpm")
-                            .fontWeight(.bold)
-                            .font(.system(size: 28))
-                            .padding()
+                                .fontWeight(.bold)
+                                .font(.system(size: 28))
+                                .padding()
                             Spacer()
+                        }
+                        if let lastHeart = Int(homeTabVM.heartRates[count-1]) {
+                            HStack {
+                            if lastHeart > homeTabVM.heartHigh {
+                                let difference = lastHeart - homeTabVM.heartHigh
+                                Image(systemName: "arrow.up")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 16))
+                                    .padding([.vertical,.leading])
+                                Text("\((Float(difference)/Float(homeTabVM.heartHigh))*100, specifier: "%.2f")% Higher than optimal Heart Rate")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 16))
+                                    .fontWeight(.bold)
+                            }
+                            else if lastHeart < homeTabVM.heartLow {
+                                let difference = homeTabVM.heartLow - lastHeart
+                                Image(systemName: "arrow.down")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 16))
+                                    .padding([.vertical,.leading])
+                                Text("\((Float(difference)/Float(homeTabVM.heartLow))*100, specifier: "%.2f")% Lower than optimal Heart Rate")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 16))
+                                    .fontWeight(.bold)
+                            }
+                                Spacer()
+                            }
                         }
                     }
                     LineGraphView(lineColor: "#5F4591" , values: homeTabVM.heartRates)
@@ -46,10 +73,10 @@ struct HomeTabView: View {
                 HStack {
                     Button {
                         if homeTabVM.feedingsDone < CommonData.sharedVariables.totalFeedings {
-                        homeTabVM.feedFood()
+                            homeTabVM.feedFood()
                         }
                         else {
-                            CommonData.sharedVariables.feedingsDone = 0 
+                            CommonData.sharedVariables.feedingsDone = 0
                             showAlert = true
                         }
                     } label: {
@@ -118,6 +145,7 @@ struct HomeTabView: View {
             analyticsVM.getTemperature()
             homeTabVM.getIPfromFirebase()
             homeTabVM.getPulse()
+            homeTabVM.getOptimal()
         }
     }
 }

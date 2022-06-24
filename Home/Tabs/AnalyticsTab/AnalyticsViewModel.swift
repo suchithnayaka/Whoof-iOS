@@ -11,6 +11,8 @@ import FirebaseDatabase
 
 class AnalyticsViewModel: ObservableObject {
     
+    @Published var tempHigh: Int = 0
+    @Published var temptLow: Int = 0
     @Published var temp: [CGFloat] = []
     var subscriptions = Set<AnyCancellable>()
     let service = WhoofService()
@@ -40,6 +42,22 @@ class AnalyticsViewModel: ObservableObject {
                 CommonData.sharedVariables.health = Int(100.0 - response.risk)
             }
             .store(in: &subscriptions)
+    }
+    
+    func getOptimal() {
+        let ref = Database.database().reference()
+        ref.child("optimal/German Shepherd/Male/Puppy/temp/high").observeSingleEvent(of: .value, with: { snapshot in
+            self.tempHigh = snapshot.value as? Int ?? 0
+            print(self.tempHigh)
+        }) { error in
+            print(error.localizedDescription)
+        }
+        ref.child("optimal/German Shepherd/Male/Puppy/temp/low").observeSingleEvent(of: .value, with: { snapshot in
+            self.temptLow = snapshot.value as? Int ?? 37
+            print(self.temptLow)
+        }) { error in
+            print(error.localizedDescription)
+        }
     }
 
 }

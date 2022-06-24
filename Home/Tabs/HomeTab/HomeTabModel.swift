@@ -29,3 +29,20 @@ struct PredictHealthResponseModel: Codable {
     var prediction: String
     var risk: Float
 }
+
+struct OptimalModel: Codable {
+    var heart: HighandLow
+    var weight: HighandLow
+    var temp: HighandLow
+    var water: HighandLow
+    var food: HighandLow
+  
+  
+   
+    
+}
+
+struct HighandLow:Codable {
+    var high: Int
+    var low: Int
+}

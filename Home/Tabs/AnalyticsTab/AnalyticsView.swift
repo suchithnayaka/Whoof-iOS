@@ -43,6 +43,33 @@ struct AnaylticsView: View {
                             .padding()
                             Spacer()
                         }
+                        if let lastTemp = Int(analyticsVM.temp[count-1]) {
+                            HStack {
+                            if lastTemp > analyticsVM.tempHigh {
+                                let difference = lastTemp - analyticsVM.tempHigh
+                                Image(systemName: "arrow.up")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 16))
+                                    .padding([.vertical,.leading])
+                                Text("\((Float(difference)/Float(analyticsVM.tempHigh))*100, specifier: "%.2f")% Higher than optimal temperature")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 16))
+                                    .fontWeight(.bold)
+                            }
+                            else if lastTemp < analyticsVM.temptLow {
+                                let difference = analyticsVM.temptLow - lastTemp
+                                Image(systemName: "arrow.down")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 16))
+                                    .padding([.vertical,.leading])
+                                Text("\((Float(difference)/Float(analyticsVM.temptLow))*100, specifier: "%.2f")% Lower than optimal temperature")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 16))
+                                    .fontWeight(.bold)
+                            }
+                                Spacer()
+                            }
+                        }
                     }
                     LineGraphView(lineColor:"#FF00006E", values: analyticsVM.temp)
                 }
@@ -55,6 +82,7 @@ struct AnaylticsView: View {
         .onAppear {
             analyticsVM.getTemperature()
             analyticsVM.predictHealth()
+            analyticsVM.getOptimal()
         }
     }
 }
